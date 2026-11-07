@@ -2,7 +2,8 @@ import { Database } from "bun:sqlite";
 
 export const EMBEDDING_MODEL = "text-embedding-nomic-embed-text-v1.5";
 
-type Job = { id: number; status: string; model: string; started_at: string | null; finished_at: string | null; total_chunks: number; indexed_chunks: number; error: string | null; created_at: string };
+type JobStatus = "queued" | "running" | "completed" | "failed";
+type Job = { id: number; status: JobStatus; model: string; started_at: string | null; finished_at: string | null; total_chunks: number; indexed_chunks: number; error: string | null; created_at: string };
 type Chunk = { document_id: number; chunk_index: number; content: string };
 
 export function createIndexStore(db: Database) {
